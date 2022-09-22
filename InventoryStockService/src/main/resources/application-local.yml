@@ -1,0 +1,44 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /stock
+
+spring:
+  application:
+    name: stock-service 
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/stockservice
+    username: postgres
+    password: secret
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+     ddl-auto: update
+    properties:
+     hibernate:
+       database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+
+swagger:
+  url: http://localhost:${server.port}/stock            
+      
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+    
+logging:
+  file:
+    name: inventory.log
+  pattern:
+    console: '%d %-5level %logger : %msg%n'
+    file: '%d %-5level [%thread] %logger : %msg%n'
+  level:
+    '[org.springframework.web]': INFO
+    '[com.ros.inventory]': DEBUG
+    '[org.hibernate]': INFO
