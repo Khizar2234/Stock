@@ -38,3 +38,5 @@ eureka:
 logging:
   level:
     '[com.ros.inventory]': DEBUG
+
+    # yyoo
