@@ -9,7 +9,7 @@ spring:
   datasource:
     url: jdbc:mysql:///ros?createDatabaseIfNotExist=true
     username: root
-    password: harsh
+    password: sudevkk19
     initialization-mode: always
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
