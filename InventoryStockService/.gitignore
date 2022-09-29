@@ -33,4 +33,4 @@ build/
 .vscode/
 
 
-inventory-service_stock\InventoryStockService\src\main\resources
+InventoryStockService\src\main\resources
