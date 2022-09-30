@@ -43,4 +43,7 @@ public class StockPeriod {
 	@JoinColumn(name = "stock_period_id")
 	private List<ClosingStock> closingStocks;
 
+	@Column(name = "opening_stock_value")
+	private float openingStockValue;
+
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.ros.inventory.Exception.NoOpenStockPeriodFound;
 import com.ros.inventory.Repository.ClosingStockRepository;
 import com.ros.inventory.Repository.StockPeriodRepo;
+import com.ros.inventory.entities.OpeningStock;
 import com.ros.inventory.service.StockPeriod;
 
 @Service
@@ -21,6 +22,9 @@ public class StockPeriodImpl implements StockPeriod {
 	
 	@Autowired
     ClosingStockRepository closingStockRepo;
+
+	@Autowired
+	OpeningStockRepository osRepo;
 
 	public LocalDate getStockPeriodStartDate() throws NoOpenStockPeriodFound {
 		List<com.ros.inventory.entities.StockPeriod> sps= null;
@@ -56,6 +60,19 @@ public class StockPeriodImpl implements StockPeriod {
 	        }
 	    }
 	    return value;
+	}
+
+	public float getOpeningStockValue() throws OpeningStockNotFound {
+		float value =0  ;
+		List<OpeningStock> openingStocks = osRepo.findAll(); // find by restaurant id at some point
+		if(openingStocks == null) 
+		{
+			throw new OpeningStockNotFound("No opening stocks found!");
+		}
+		for(OpeningStock stock : openingStocks) {
+			value += stock.getQty() * stock.getPricePerUnit();
+		}
+		return value;
 	}
 
 }
