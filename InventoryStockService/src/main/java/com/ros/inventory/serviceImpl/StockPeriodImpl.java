@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ros.inventory.Exception.NoOpenStockPeriodFound;
+import com.ros.inventory.Exception.OpeningStockNotFound;
 import com.ros.inventory.Repository.ClosingStockRepository;
+import com.ros.inventory.Repository.OpeningStockRepository;
 import com.ros.inventory.Repository.StockPeriodRepo;
 import com.ros.inventory.entities.OpeningStock;
 import com.ros.inventory.service.StockPeriod;
