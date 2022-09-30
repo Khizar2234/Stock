@@ -11,4 +11,6 @@ public interface StockPeriod {
 	public LocalDate getStockPeriodStartDate() throws NoOpenStockPeriodFound;
     public Map<UUID, Double> getClosingStockValue() throws NoOpenStockPeriodFound;
     public Map<UUID, Double> getOpeningStockValue() throws NoOpenStockPeriodFound;
+    public float totalClosedStockValue();
+
 }

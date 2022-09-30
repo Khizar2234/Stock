@@ -21,76 +21,90 @@ import com.ros.inventory.service.StockPeriod;
 
 @Service
 public class StockPeriodImpl implements StockPeriod {
-	@Autowired
-	StockPeriodRepo repo;
-	
-	
-	@Autowired
+    @Autowired
+    StockPeriodRepo repo;
+
+    @Autowired
     ClosingStockRepository closingStockRepo;
 
-	@Autowired
-	OpeningStockRepository osRepo;
+    @Autowired
+    OpeningStockRepository osRepo;
 
-	public LocalDate getStockPeriodStartDate() throws NoOpenStockPeriodFound {
-		List<com.ros.inventory.entities.StockPeriod> sps= null;
-		sps= repo.findAll();
-		LocalDate date= null;
-		for(com.ros.inventory.entities.StockPeriod  sp:sps){
-			if(sp.getCloseDate()==null) {
-				date= sp.getStartDate();
-				break;
-			}
-		}
-		if(date==null)
-			throw new NoOpenStockPeriodFound("no Open stock period found");
-		
-		return date;
-		
-		
-	}
-	
-	public Map<UUID, Double> getClosingStockValue() throws NoOpenStockPeriodFound{
-	    List<com.ros.inventory.entities.StockPeriod> sps = null;
-	    sps = repo.findAll();
-	    double value=0;
-	    Map<UUID, Double> closingValueTotal = new HashMap<>();
+    public LocalDate getStockPeriodStartDate() throws NoOpenStockPeriodFound {
+        List<com.ros.inventory.entities.StockPeriod> sps = null;
+        sps = repo.findAll();
+        LocalDate date = null;
+        for (com.ros.inventory.entities.StockPeriod sp : sps) {
+            if (sp.getCloseDate() == null) {
+                date = sp.getStartDate();
+                break;
+            }
+        }
+        if (date == null)
+            throw new NoOpenStockPeriodFound("no Open stock period found");
+
+        return date;
+
+    }
+
+    public Map<UUID, Double> getClosingStockValue() throws NoOpenStockPeriodFound {
+        List<com.ros.inventory.entities.StockPeriod> sps = null;
+        sps = repo.findAll();
+        double value = 0;
+        Map<UUID, Double> closingValueTotal = new HashMap<>();
 //	    check if sps is null
 //	    LocalDate date = null;
-	    for(com.ros.inventory.entities.StockPeriod sp: sps) {
-	        if(sp.getCloseDate()!=null) {
-	            List<com.ros.inventory.entities.ClosingStock> css = null;            
-	            css = closingStockRepo.findByStockPeriodId(sp.getStockPeriodId());
-	            value=0;
-	            for(com.ros.inventory.entities.ClosingStock cs: css) {
-	                value+=cs.getQty()*cs.getPricePerUnit();
+        for (com.ros.inventory.entities.StockPeriod sp : sps) {
+            if (sp.getCloseDate() != null) {
+                List<com.ros.inventory.entities.ClosingStock> css = null;
+                css = closingStockRepo.findByStockPeriodId(sp.getStockPeriodId());
+                value = 0;
+                for (com.ros.inventory.entities.ClosingStock cs : css) {
+                    value += cs.getQty() * cs.getPricePerUnit();
 //	                System.out.println(value);
-	            }
-	            closingValueTotal.put(sp.getStockPeriodId(), value);
-	        }
-	        
-	    }
-	    return closingValueTotal;
-	}
+                }
+                closingValueTotal.put(sp.getStockPeriodId(), value);
+            }
 
-	public Map<UUID, Double> getOpeningStockValue(){
-	    List<com.ros.inventory.entities.StockPeriod> sps = null;
+        }
+        return closingValueTotal;
+    }
+
+    public Map<UUID, Double> getOpeningStockValue() {
+        List<com.ros.inventory.entities.StockPeriod> sps = null;
         sps = repo.findAll();
-        double value=0;
+        double value = 0;
         Map<UUID, Double> openingValueTotal = new HashMap<>();
-		for(com.ros.inventory.entities.StockPeriod sp: sps) {
-            if(sp.getCloseDate()!=null) {
-                List<com.ros.inventory.entities.OpeningStock> css = null;            
+        for (com.ros.inventory.entities.StockPeriod sp : sps) {
+            if (sp.getCloseDate() != null) {
+                List<com.ros.inventory.entities.OpeningStock> css = null;
                 css = osRepo.findByStockPeriodId(sp.getStockPeriodId());
-                value=0;
-                for(com.ros.inventory.entities.OpeningStock cs: css) {
-                    value+=cs.getQty()*cs.getPricePerUnit();
+                value = 0;
+                for (com.ros.inventory.entities.OpeningStock cs : css) {
+                    value += cs.getQty() * cs.getPricePerUnit();
 //                  System.out.println(value);
                 }
                 openingValueTotal.put(sp.getStockPeriodId(), value);
             }
-            
+
         }
         return openingValueTotal;
-	}
+    }
+
+    public float totalClosedStockValue() {
+        List<com.ros.inventory.entities.StockPeriod> sps = null;
+        sps = repo.findAll();
+        float value = 0;
+        for (com.ros.inventory.entities.StockPeriod sp : sps) {
+            if (sp.getCloseDate() != null) {
+                List<com.ros.inventory.entities.OpeningStock> css = null;
+                css = osRepo.findByStockPeriodId(sp.getStockPeriodId());
+                for (com.ros.inventory.entities.OpeningStock cs : css) {
+                    value += cs.getQty() * cs.getPricePerUnit();
+                }
+            }
+        }
+        return value;
+    }
 
 }

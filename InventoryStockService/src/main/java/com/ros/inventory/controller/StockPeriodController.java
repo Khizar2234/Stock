@@ -16,41 +16,49 @@ import com.ros.inventory.service.StockPeriod;
 @RequestMapping("/stockPeriod")
 @CrossOrigin("*")
 public class StockPeriodController {
-	
-	@Autowired
-	StockPeriod service;
-	
-	@GetMapping("/getStartDate")
-	public ResponseEntity<?> getStockPeriodStartDate(){
-		ResponseEntity<?> response=null;
-		try {
-			response= new ResponseEntity<>(service.getStockPeriodStartDate(), HttpStatus.OK);
-		} catch (NoOpenStockPeriodFound e) {
-			// TODO Auto-generated catch block
-			response= new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
-		}
-		return response;
-	}
-	
-	@GetMapping("/getClosingStockValue")
-	public ResponseEntity<?> getClosingStockValue(){
-	    ResponseEntity<?> response = null;
-	    try {
-            response= new ResponseEntity<>(service.getClosingStockValue(), HttpStatus.OK);
-        } catch (NoOpenStockPeriodFound e) {
-            // TODO Auto-generated catch block
-            response= new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
-        }
-	    return response;
-	}
-	@GetMapping("/getOpeningStockValue")
-    public ResponseEntity<?> getOpeningStockValue(){
+
+    @Autowired
+    StockPeriod service;
+
+    @GetMapping("/getStartDate")
+    public ResponseEntity<?> getStockPeriodStartDate() {
         ResponseEntity<?> response = null;
         try {
-            response= new ResponseEntity<>(service.getOpeningStockValue(), HttpStatus.OK);
+            response = new ResponseEntity<>(service.getStockPeriodStartDate(), HttpStatus.OK);
         } catch (NoOpenStockPeriodFound e) {
             // TODO Auto-generated catch block
-            response= new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+            response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
+        return response;
+    }
+
+    @GetMapping("/getClosingStockValue")
+    public ResponseEntity<?> getClosingStockValue() {
+        ResponseEntity<?> response = null;
+        try {
+            response = new ResponseEntity<>(service.getClosingStockValue(), HttpStatus.OK);
+        } catch (NoOpenStockPeriodFound e) {
+            // TODO Auto-generated catch block
+            response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
+        return response;
+    }
+
+    @GetMapping("/getTotalClosingStockValue")
+    public ResponseEntity<?> getToatlClosingStockValue() {
+        ResponseEntity<?> response = null;
+        response = new ResponseEntity<>(service.totalClosedStockValue(), HttpStatus.OK);
+        return response;
+    }
+
+    @GetMapping("/getOpeningStockValue")
+    public ResponseEntity<?> getOpeningStockValue() {
+        ResponseEntity<?> response = null;
+        try {
+            response = new ResponseEntity<>(service.getOpeningStockValue(), HttpStatus.OK);
+        } catch (NoOpenStockPeriodFound e) {
+            // TODO Auto-generated catch block
+            response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
         }
         return response;
     }
