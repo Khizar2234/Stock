@@ -2,22 +2,21 @@ server:
   port: 8093
   servlet:
     context-path: /inventory
-    
 spring:
   application:
     name: InventoryService
   datasource:
-    url: jdbc:mysql:///ros?createDatabaseIfNotExist=true
-    username: root
-    password: sudevkk19
+    url: jdbc:postgresql://db:5432/inventory?CreateDatabaseIfNotExist=true
+    username: admin
+    password: harsh
     initialization-mode: always
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: create-drop
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         namingStrategy: org.hibernate.cfg.PhysicalNamingStrategy
   cloud:
     discovery:
@@ -25,7 +24,7 @@ spring:
       
 swagger:
   url: https://inventory-service.test.restaurantonesolution.com/inventory
-
+  
 eureka:
   client:
     register-with-eureka: true
@@ -34,7 +33,6 @@ eureka:
       defaultZone: https://service-registry.test.restaurantonesolution.com/eureka
   instance:
     hostname: localhost
-
 logging:
   level:
     '[com.ros.inventory]': DEBUG
