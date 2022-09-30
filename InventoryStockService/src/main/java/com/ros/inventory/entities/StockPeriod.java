@@ -35,4 +35,7 @@ public class StockPeriod {
 	@Column(name = "close_date")
 	private LocalDate closeDate;
 
+	@Column(name = "opening_stock_value")
+	private float openingStockValue;
+
 }

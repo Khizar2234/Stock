@@ -3,11 +3,15 @@ package com.ros.inventory.entities;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -40,4 +44,8 @@ public class OpeningStock {
 	private int qty;
 	@Column(name="closing_Date")
 	private LocalDate closing_date;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "stock_period_id")
+	private StockPeriod stockPeriodId;
 }
