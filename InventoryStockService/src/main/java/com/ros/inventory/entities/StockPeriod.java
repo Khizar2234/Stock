@@ -26,7 +26,7 @@ public class StockPeriod {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "stock_period_id", length = 8)
+	@Column(name = "stock_period_id")
 	private UUID StockPeriodId;
 
 	@Column(name = "start_date")
