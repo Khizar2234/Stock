@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ros.inventory.Exception.NoOpenStockPeriodFound;
+import com.ros.inventory.entities.ClosingStock;
 import com.ros.inventory.service.StockPeriod;
 
 @RestController
@@ -29,5 +30,17 @@ public class StockPeriodController {
 			response= new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
 		}
 		return response;
+	}
+	
+	@GetMapping("/getClosingStockValue")
+	public ResponseEntity<?> getClosingStockValue(){
+	    ResponseEntity<?> response = null;
+	    try {
+            response= new ResponseEntity<>(service.getClosingStockValue(), HttpStatus.OK);
+        } catch (NoOpenStockPeriodFound e) {
+            // TODO Auto-generated catch block
+            response= new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
+	    return response;
 	}
 }

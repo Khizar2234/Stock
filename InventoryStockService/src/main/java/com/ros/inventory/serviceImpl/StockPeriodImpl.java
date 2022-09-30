@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ros.inventory.Exception.NoOpenStockPeriodFound;
+import com.ros.inventory.Repository.ClosingStockRepository;
 import com.ros.inventory.Repository.StockPeriodRepo;
 import com.ros.inventory.service.StockPeriod;
 
@@ -16,6 +17,10 @@ import com.ros.inventory.service.StockPeriod;
 public class StockPeriodImpl implements StockPeriod {
 	@Autowired
 	StockPeriodRepo repo;
+	
+	
+	@Autowired
+    ClosingStockRepository closingStockRepo;
 
 	public LocalDate getStockPeriodStartDate() throws NoOpenStockPeriodFound {
 		List<com.ros.inventory.entities.StockPeriod> sps= null;
@@ -33,6 +38,24 @@ public class StockPeriodImpl implements StockPeriod {
 		return date;
 		
 		
+	}
+	
+	public double getClosingStockValue() throws NoOpenStockPeriodFound{
+	    List<com.ros.inventory.entities.StockPeriod> sps = null;
+	    sps = repo.findAll();
+	    double value=0;
+//	    check if sps is null
+//	    LocalDate date = null;
+	    for(com.ros.inventory.entities.StockPeriod sp: sps) {
+	        if(sp.getCloseDate()!=null) {
+	            List<com.ros.inventory.entities.ClosingStock> css = null;            
+	            css = closingStockRepo.findByStockPeriodId(sp.getStockPeriodId());
+	            for(com.ros.inventory.entities.ClosingStock cs: css) {
+	                value+=cs.getQty()*cs.getPricePerUnit();
+	            }
+	        }
+	    }
+	    return value;
 	}
 
 }

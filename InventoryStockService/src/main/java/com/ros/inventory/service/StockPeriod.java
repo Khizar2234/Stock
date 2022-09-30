@@ -6,4 +6,5 @@ import com.ros.inventory.Exception.NoOpenStockPeriodFound;
 
 public interface StockPeriod {
 	public LocalDate getStockPeriodStartDate() throws NoOpenStockPeriodFound;
+    public double getClosingStockValue() throws NoOpenStockPeriodFound;
 }

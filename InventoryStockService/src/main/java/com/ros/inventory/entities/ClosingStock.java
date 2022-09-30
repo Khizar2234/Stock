@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class CLosingStock {
+public class ClosingStock {
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -48,5 +48,5 @@ public class CLosingStock {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "stock_period_id")
-	private StockPeriod stockPeriodId;
+	private StockPeriod stockPeriod;
 }
