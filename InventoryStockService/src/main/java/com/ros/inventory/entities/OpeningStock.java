@@ -47,5 +47,5 @@ public class OpeningStock {
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "stock_period_id")
-	private StockPeriod stockPeriodId;
+	private StockPeriod stockPeriod;
 }

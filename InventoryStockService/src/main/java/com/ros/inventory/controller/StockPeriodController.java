@@ -43,4 +43,15 @@ public class StockPeriodController {
         }
 	    return response;
 	}
+	@GetMapping("/getOpeningStockValue")
+    public ResponseEntity<?> getOpeningStockValue(){
+        ResponseEntity<?> response = null;
+        try {
+            response= new ResponseEntity<>(service.getOpeningStockValue(), HttpStatus.OK);
+        } catch (NoOpenStockPeriodFound e) {
+            // TODO Auto-generated catch block
+            response= new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
+        return response;
+    }
 }

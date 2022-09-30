@@ -40,10 +40,13 @@ public class StockPeriod {
 	private LocalDate closeDate;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "stock_period_id")
+	@JoinColumn(name = "closing_stock_id")
 	private List<ClosingStock> closingStocks;
-
-	@Column(name = "opening_stock_value")
-	private float openingStockValue;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "opening_stock_id")
+	private List<OpeningStock> openingStock;
+	
+	
 
 }

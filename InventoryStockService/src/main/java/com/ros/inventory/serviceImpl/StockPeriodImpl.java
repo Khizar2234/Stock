@@ -3,7 +3,10 @@ package com.ros.inventory.serviceImpl;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,35 +49,48 @@ public class StockPeriodImpl implements StockPeriod {
 		
 	}
 	
-	public double getClosingStockValue() throws NoOpenStockPeriodFound{
+	public Map<UUID, Double> getClosingStockValue() throws NoOpenStockPeriodFound{
 	    List<com.ros.inventory.entities.StockPeriod> sps = null;
 	    sps = repo.findAll();
 	    double value=0;
+	    Map<UUID, Double> closingValueTotal = new HashMap<>();
 //	    check if sps is null
 //	    LocalDate date = null;
 	    for(com.ros.inventory.entities.StockPeriod sp: sps) {
 	        if(sp.getCloseDate()!=null) {
 	            List<com.ros.inventory.entities.ClosingStock> css = null;            
 	            css = closingStockRepo.findByStockPeriodId(sp.getStockPeriodId());
+	            value=0;
 	            for(com.ros.inventory.entities.ClosingStock cs: css) {
 	                value+=cs.getQty()*cs.getPricePerUnit();
+//	                System.out.println(value);
 	            }
+	            closingValueTotal.put(sp.getStockPeriodId(), value);
 	        }
+	        
 	    }
-	    return value;
+	    return closingValueTotal;
 	}
 
-	public float getOpeningStockValue() throws OpeningStockNotFound {
-		float value =0  ;
-		List<OpeningStock> openingStocks = osRepo.findAll(); // find by restaurant id at some point
-		if(openingStocks == null) 
-		{
-			throw new OpeningStockNotFound("No opening stocks found!");
-		}
-		for(OpeningStock stock : openingStocks) {
-			value += stock.getQty() * stock.getPricePerUnit();
-		}
-		return value;
+	public Map<UUID, Double> getOpeningStockValue(){
+	    List<com.ros.inventory.entities.StockPeriod> sps = null;
+        sps = repo.findAll();
+        double value=0;
+        Map<UUID, Double> openingValueTotal = new HashMap<>();
+		for(com.ros.inventory.entities.StockPeriod sp: sps) {
+            if(sp.getCloseDate()!=null) {
+                List<com.ros.inventory.entities.OpeningStock> css = null;            
+                css = osRepo.findByStockPeriodId(sp.getStockPeriodId());
+                value=0;
+                for(com.ros.inventory.entities.OpeningStock cs: css) {
+                    value+=cs.getQty()*cs.getPricePerUnit();
+//                  System.out.println(value);
+                }
+                openingValueTotal.put(sp.getStockPeriodId(), value);
+            }
+            
+        }
+        return openingValueTotal;
 	}
 
 }
