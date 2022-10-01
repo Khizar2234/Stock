@@ -42,20 +42,22 @@ public class StockPeriodImpl implements StockPeriod {
     @Autowired
     CloseStockRepository closeStockRepo;
 
-    public LocalDate getStockPeriodStartDate() throws NoOpenStockPeriodFound {
+    public Map<UUID, LocalDate> getStockPeriodStartDate() throws NoOpenStockPeriodFound {
         List<com.ros.inventory.entities.StockPeriod> sps = null;
+        Map<UUID, LocalDate> openStockDetail = new HashMap<>();
         sps = repo.findAll();
         LocalDate date = null;
         for (com.ros.inventory.entities.StockPeriod sp : sps) {
             if (sp.getCloseDate() == null) {
                 date = sp.getStartDate();
+                openStockDetail.put(sp.getStockPeriodId(), date);
                 break;
             }
         }
         if (date == null)
             throw new NoOpenStockPeriodFound("no Open stock period found");
 
-        return date;
+        return openStockDetail;
 
     }
 
