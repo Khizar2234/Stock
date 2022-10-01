@@ -1,9 +1,9 @@
 package com.ros.inventory.serviceImpl;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -142,6 +142,16 @@ public class ClosingValuesServiceImpl implements IClosingValueService {
 		return "Added Successfully";
 		}
 		return "Draft should be approve completed first";
+	}
+	@Override
+
+    public List<CloseStock> getStockPeriod(Date start_Date, Date end_date) throws InventoryException {
+
+        List<CloseStock> list = closerepo.getStockPeriod(start_Date, end_date);
+
+        // TODO Auto-generated method stub
+
+        return list;
 	}
 }
 	
