@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ros.inventory.Exception.InventoryException;
-import com.ros.inventory.controller.dto.CloseStockDto;
 import com.ros.inventory.controller.dto.ClosingValueDto;
-import com.ros.inventory.entities.PurchaseOrder;
 import com.ros.inventory.service.IClosingValueService;
 
 @RestController
