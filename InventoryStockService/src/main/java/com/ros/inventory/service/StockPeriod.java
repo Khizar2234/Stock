@@ -8,6 +8,7 @@ import java.util.UUID;
 import com.ros.inventory.Exception.NoOpenStockPeriodFound;
 import com.ros.inventory.Exception.OpeningStockNotFound;
 import com.ros.inventory.controller.dto.ClosingValueDto;
+import com.ros.inventory.entities.CloseStock;
 
 public interface StockPeriod {
 	public LocalDate getStockPeriodStartDate() throws NoOpenStockPeriodFound;
@@ -15,5 +16,6 @@ public interface StockPeriod {
     public Map<UUID, Double> getOpeningStockValue() throws NoOpenStockPeriodFound;
     public float totalClosedStockValue();
     public String saveClosingValue(List<ClosingValueDto> cvd) throws NoOpenStockPeriodFound;
+    public List<CloseStock> getClosedStockList() throws NoOpenStockPeriodFound;
 
 }
