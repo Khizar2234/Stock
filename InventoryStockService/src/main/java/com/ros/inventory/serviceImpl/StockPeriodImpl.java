@@ -3,11 +3,13 @@ package com.ros.inventory.serviceImpl;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.aspectj.apache.bcel.classfile.Module.Open;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import com.ros.inventory.Exception.OpeningStockNotFound;
 import com.ros.inventory.Repository.ClosingStockRepository;
 import com.ros.inventory.Repository.OpeningStockRepository;
 import com.ros.inventory.Repository.StockPeriodRepo;
+import com.ros.inventory.controller.dto.ClosingValueDto;
+import com.ros.inventory.entities.ClosingStock;
 import com.ros.inventory.entities.OpeningStock;
 import com.ros.inventory.service.StockPeriod;
 
@@ -105,6 +109,70 @@ public class StockPeriodImpl implements StockPeriod {
             }
         }
         return value;
+    }
+
+    @Override
+    public String saveClosingValue(List<ClosingValueDto> cvds) throws NoOpenStockPeriodFound {  
+//        creating object to store stock period values
+        List<com.ros.inventory.entities.StockPeriod> sps = null;
+//        finding stock period
+        sps = repo.findAll();
+        LocalDate date = LocalDate.now();
+        com.ros.inventory.entities.StockPeriod currectStockPeriod = null;
+//        finding open stock period
+        for (com.ros.inventory.entities.StockPeriod sp : sps) {
+            if (sp.getCloseDate() == null) {
+//                date = sp.getStartDate();
+                currectStockPeriod = sp;
+                break;
+            }
+        }
+//        throwing error if no open stock periods are found
+        if (currectStockPeriod == null) {
+            throw new NoOpenStockPeriodFound("no open stock period found");
+        }
+//        closing the open stock period
+        currectStockPeriod.setCloseDate(date);
+        repo.save(currectStockPeriod);
+
+//        creating new stock period
+        LocalDate newDate = LocalDate.now();
+        com.ros.inventory.entities.StockPeriod newStockPeriod = new com.ros.inventory.entities.StockPeriod();
+        newStockPeriod.setStartDate(newDate.plusDays(1));
+        repo.save(newStockPeriod);
+
+//        finding new stock period
+        com.ros.inventory.entities.StockPeriod newCurrentStockPeriod = null;
+        sps = repo.findAll();
+        for (com.ros.inventory.entities.StockPeriod sp : sps) {
+            if (sp.getCloseDate() == null) {
+                newCurrentStockPeriod = sp;
+                break;
+            }
+        }
+//        saving closingStock values and openingStock values for new period 
+        for (ClosingValueDto cvd : cvds) {
+            ClosingStock cl = new ClosingStock();
+            cl.setClosing_date(date);
+            cl.setPricePerUnit(cvd.getPricePerUnit());
+            cl.setProductCode(cvd.getProductCode());
+            cl.setProductName(cvd.getProductName());
+            cl.setQty(cvd.getQty());
+            cl.setStockPeriod(currectStockPeriod);
+            cl.setUnitMeasurement(cvd.getUnitMeasurement());
+            closingStockRepo.save(cl);
+
+            OpeningStock os = new OpeningStock();
+            os.setPricePerUnit(cvd.getPricePerUnit());
+            os.setProductCode(cvd.getProductCode());
+            os.setProductName(cvd.getProductName());
+            os.setQty(cvd.getQty());
+            os.setStockPeriod(newCurrentStockPeriod);
+            os.setUnitMeasurement(cvd.getUnitMeasurement());
+            osRepo.save(os);
+        }
+        
+        return "Saved successfuly";
     }
 
 }
