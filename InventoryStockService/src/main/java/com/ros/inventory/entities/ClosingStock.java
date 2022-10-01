@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+//@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class ClosingStock {
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
@@ -46,6 +47,7 @@ public class ClosingStock {
 	@Column(name = "closing_Date")
 	private LocalDate closing_date;
 	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "stock_period_id")
 	private StockPeriod stockPeriod;

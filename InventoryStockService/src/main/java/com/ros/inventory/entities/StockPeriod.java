@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+//@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class StockPeriod {
 
 	@SuppressWarnings("unused")
@@ -39,14 +40,4 @@ public class StockPeriod {
 	@Column(name = "close_date")
 	private LocalDate closeDate;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "closing_stock_id")
-	private List<ClosingStock> closingStocks;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "opening_stock_id")
-	private List<OpeningStock> openingStock;
-	
-	
-
 }

@@ -97,9 +97,9 @@ public class StockPeriodImpl implements StockPeriod {
         float value = 0;
         for (com.ros.inventory.entities.StockPeriod sp : sps) {
             if (sp.getCloseDate() != null) {
-                List<com.ros.inventory.entities.OpeningStock> css = null;
-                css = osRepo.findByStockPeriodId(sp.getStockPeriodId());
-                for (com.ros.inventory.entities.OpeningStock cs : css) {
+                List<com.ros.inventory.entities.ClosingStock> css = null;
+                css = closingStockRepo.findByStockPeriodId(sp.getStockPeriodId());
+                for (com.ros.inventory.entities.ClosingStock cs : css) {
                     value += cs.getQty() * cs.getPricePerUnit();
                 }
             }
