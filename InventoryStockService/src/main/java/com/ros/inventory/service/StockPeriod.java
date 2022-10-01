@@ -11,7 +11,7 @@ import com.ros.inventory.controller.dto.ClosingValueDto;
 import com.ros.inventory.entities.CloseStock;
 
 public interface StockPeriod {
-	public LocalDate getStockPeriodStartDate() throws NoOpenStockPeriodFound;
+	public Map<UUID, LocalDate> getStockPeriodStartDate() throws NoOpenStockPeriodFound;
     public Map<UUID, Double> getClosingStockValue() throws NoOpenStockPeriodFound;
     public Map<UUID, Double> getOpeningStockValue() throws NoOpenStockPeriodFound;
     public float totalClosedStockValue();
