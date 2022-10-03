@@ -22,7 +22,8 @@ spring:
   cloud:
     discovery:
       enabled: false
-      
+  main:
+       allow-circular-references: true    
 swagger:
   url: https://stock-service.ros.skillassure.com/stock
   
