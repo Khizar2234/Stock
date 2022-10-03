@@ -94,9 +94,9 @@ public class StockController {
 
 	// 6 --------------------stock balance----------------------------------//
 
-	@GetMapping("/stockBalance/{id}")
+	@GetMapping("/stockBalance")
 	@ResponseBody
-	public ResponseEntity<?> getstockBalance(@PathVariable("id") UUID id) throws InventoryException {
+	public ResponseEntity<?> getstockBalance() throws InventoryException {
 		ResponseEntity<?> response;
 		response = new ResponseEntity<>(prod.getStockBalance(), HttpStatus.OK);
 

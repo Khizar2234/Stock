@@ -13,16 +13,13 @@ import com.ros.inventory.controller.dto.SiteTransferDto;
 import com.ros.inventory.entities.SiteTransfer;
 import com.ros.inventory.entities.StockPeriod;
 import com.ros.inventory.entities.Wastage;
-import com.ros.inventory.entities.CloseStock;
 
 public interface IStockPeriod {
-	public Map<UUID, LocalDate> getStockPeriodStartDate() throws NoOpenStockPeriodFound;
+	public LocalDate getStockPeriodStartDate() throws NoOpenStockPeriodFound;
     public Map<UUID, Double> getClosingStockValue() throws NoOpenStockPeriodFound;
     public Map<UUID, Double> getOpeningStockValue() throws NoOpenStockPeriodFound;
     public float totalClosedStockValue();
     public String saveClosingValue(List<ClosingValueDto> cvd) throws NoOpenStockPeriodFound;
-    public List<CloseStock> getClosedStockList() throws NoOpenStockPeriodFound;
-    public boolean closeStockApprove(CloseStock closedStock);
     public List<Wastage> getAllWastedProducts(UUID id);
     public List<SiteTransferDto> getAllSiteTransfers(UUID id); 
     public StockPeriod add(StockPeriod sp);

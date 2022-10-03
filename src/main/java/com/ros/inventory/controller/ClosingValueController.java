@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ros.inventory.Exception.InventoryException;
-import com.ros.inventory.controller.dto.CloseStockDateDto;
+import com.ros.inventory.controller.dto.CloseStockDto;
 import com.ros.inventory.controller.dto.ClosingValueDto;
+import com.ros.inventory.entities.PurchaseOrder;
 import com.ros.inventory.service.IClosingValueService;
 
 @RestController
@@ -23,55 +24,37 @@ import com.ros.inventory.service.IClosingValueService;
 @CrossOrigin("*")
 public class ClosingValueController {
 
-    @Autowired
-    IClosingValueService iclosingValue;
-    // View Closing values
+	@Autowired
+	IClosingValueService iclosingValue;
+	// View Closing values
 
-    // ------------------------ VIEW CLOSE VALUES ------------------------------//
-    @GetMapping("/view_close_values")
-    @ResponseBody
-    public ResponseEntity<?> getItems() {
-        System.out.println("hello ");
-        ResponseEntity<?> response;
-        try {
-            response = new ResponseEntity<Object>(iclosingValue.getValues(), HttpStatus.OK);
+	// ------------------------ VIEW CLOSE VALUES ------------------------------//
+	@GetMapping("/view_close_values")
+	@ResponseBody
+	public ResponseEntity<?> getItems() {
+		ResponseEntity<?> response;
+		try {
+			response = new ResponseEntity<Object>(iclosingValue.getValues(), HttpStatus.OK);
 
-        } catch (InventoryException e) {
-            response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
-            e.printStackTrace();
-        }
-        return response;
-    }
+		} catch (InventoryException e) {
+			response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
+			e.printStackTrace();
+		}
+		return response;
+	}
 
-    // --------------------------PUT CLOSE VALUES----------------------------//
-    @PostMapping("/set_close_values")
-    @ResponseBody
-    public ResponseEntity<?> setValues(@RequestBody List<ClosingValueDto> close_stock_values) {
-        ResponseEntity<?> response;
-        try {
-            response = new ResponseEntity<Object>(iclosingValue.setValues(close_stock_values), HttpStatus.OK);
+	// --------------------------PUT CLOSE VALUES----------------------------//
+	@PostMapping("/set_close_values")
+	@ResponseBody
+	public ResponseEntity<?> setValues(@RequestBody List<ClosingValueDto> close_stock_values) {
+		ResponseEntity<?> response;
+		try {
+			response = new ResponseEntity<Object>(iclosingValue.setValues(close_stock_values), HttpStatus.OK);
 
-        } catch (InventoryException e) {
-            response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
-            e.printStackTrace();
-        }
-        return response;
-    }
-
-    @PostMapping("/get_close_periods")
-
-    @ResponseBody
-
-    public ResponseEntity<?> getStockPeriod(@RequestBody CloseStockDateDto close_stock_dates) {
-        ResponseEntity<?> response;
-        try {
-            response = new ResponseEntity<Object>(
-                    iclosingValue.getStockPeriod(close_stock_dates.getStart_date(), close_stock_dates.getEnd_date()),
-                    HttpStatus.OK);
-        } catch (InventoryException e) {
-            response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
-            e.printStackTrace();
-        }
-        return response;
-    }
+		} catch (InventoryException e) {
+			response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+			e.printStackTrace();
+		}
+		return response;
+	}
 }
