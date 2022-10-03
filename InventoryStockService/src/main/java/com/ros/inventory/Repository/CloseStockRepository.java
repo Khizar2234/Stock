@@ -19,5 +19,7 @@ public interface CloseStockRepository extends JpaRepository<CloseStock,UUID> {
 	public CloseStock OpeningDate();
    	@Query(value = "SELECT * from close_stock where stock_start_date >= :start_date and stock_start_date <= :end_date",nativeQuery = true)
     public List<CloseStock> getStockPeriod(@Param("start_date") Date start_date, @Param("end_date") Date end_date );
+	@Query(value = "select * from close_stock Order By stock_end_date desc Limit 5",nativeQuery = true)
+   	public List<CloseStock> getLastFiveStockPeriod();
 
 }

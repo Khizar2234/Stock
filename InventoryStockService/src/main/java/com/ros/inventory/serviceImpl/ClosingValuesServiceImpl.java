@@ -27,7 +27,6 @@ import com.ros.inventory.entities.StockStatus;
 import com.ros.inventory.mapper.ClosingValueMapper;
 import com.ros.inventory.service.IClosingValueService;
 
-
 @Service
 public class ClosingValuesServiceImpl implements IClosingValueService {
 
@@ -45,115 +44,109 @@ public class ClosingValuesServiceImpl implements IClosingValueService {
 	CloseStockRepository closerepo;
 	@Autowired
 	PurchaseRepository purchaseRepo;
-	
+
 	double closing_value;
 
 	@Override
 	public List<ClosingValueDto> getValues() throws InventoryException {
-	
 
 		PurchaseOrder first_purchase;
-        // It return the last exported data.
-		if(closerepo.findAll().isEmpty()) {
-			
-		    first_purchase = purchaseRepo.getLastSession("exported");
-		}
-		else {
+		// It return the last exported data.
+		if (closerepo.findAll().isEmpty()) {
+
+			first_purchase = purchaseRepo.getLastSession("exported");
+		} else {
 			first_purchase = purchaseRepo.getStartSessionDate("exported", closerepo.OpeningDate().getStock_end_date());
 		}
-		
-		// OpeningStockDto list 
+
+		// OpeningStockDto list
 		List<ClosingValueDto> list = new ArrayList();
 
 		// last_purchase should not be null
-		if(first_purchase != null) {
-				
-		
-		// get data from database
-		List<Product> dataFromDB = repo.findAll();
+		if (first_purchase != null) {
 
+			// get data from database
+			List<Product> dataFromDB = repo.findAll();
 
-		
-		LocalDate start_date=first_purchase.getPurchaseOrderDate();
-		LocalDate closing_dat=LocalDate.now();
-		
-	
+			LocalDate start_date = first_purchase.getPurchaseOrderDate();
+			LocalDate closing_dat = LocalDate.now();
 
-		// use predicate so to check this month data is available or not
-		Predicate<Product> s1 = s -> s.getProductEffectiveDate().isAfter(start_date)
-				|| s.getProductEffectiveDate().isEqual(start_date);
-		boolean isPresent = dataFromDB.stream().anyMatch(s1);
+			// use predicate so to check this month data is available or not
+			Predicate<Product> s1 = s -> s.getProductEffectiveDate().isAfter(start_date)
+					|| s.getProductEffectiveDate().isEqual(start_date);
+			boolean isPresent = dataFromDB.stream().anyMatch(s1);
 //			
 			// if this month data is available then it allow the program to enter the if
 			// condition
 			if (isPresent) {
 
-
-
 				List<Product> list1 = dataFromDB.stream()
-						.filter(x -> (x.getProductEffectiveDate().isAfter(start_date) && x.getProductEffectiveDate().isBefore(closing_dat)
-								|| x.getProductEffectiveDate().isEqual(start_date) || x.getProductEffectiveDate().equals(closing_dat)))
+						.filter(x -> (x.getProductEffectiveDate().isAfter(start_date)
+								&& x.getProductEffectiveDate().isBefore(closing_dat)
+								|| x.getProductEffectiveDate().isEqual(start_date)
+								|| x.getProductEffectiveDate().equals(closing_dat)))
 						.collect(Collectors.toList());
 
 				// Inside for loop , store the objects in a list and also add open_total
 				for (Product p : list1) {
 					// add total
-		
+
 					list.add(mapper.convertToClosingValueDto(p));
 				}
-				
 
 			} else {
 				return list;
 			}
-			return list;}
 			return list;
 		}
+		return list;
+	}
+
 //----------------------Adding values in Opening stock entity----------------------//
 	@Override
 	public String setValues(List<ClosingValueDto> close_stock_values) throws InventoryException {
-		
-		double closing_stock_total=0;
-		
-		LocalDate close_date=LocalDate.now();
-		
-	
-		Predicate<CloseStock> s2= x->x.getStockPeriodStatus().equals(StockStatus.draft);
-		boolean check_draft=closerepo.findAll().stream().anyMatch(s2);
-		
-		if(check_draft==false) {
-		for(ClosingValueDto s:close_stock_values) {
-			
-			OpeningStock open_stock=new OpeningStock();
-			
-			open_stock.setProductCode(s.getProductCode());
-			open_stock.setPricePerUnit(s.getPricePerUnit());
-			open_stock.setProductName(s.getProductName());
-			open_stock.setQty(s.getQty());
-			open_stock.setUnitMeasurement(s.getUnitMeasurement());
-			open_stock.setClosing_date(close_date);
-			closing_stock_total+=s.getQty()*s.getPricePerUnit();
-			
-			opening_repo.save(open_stock);
-		}
-		this.closing_value=closing_stock_total;
-		stock_service.add_close_stock("draft");
-		
-		return "Added Successfully";
+
+		double closing_stock_total = 0;
+
+		LocalDate close_date = LocalDate.now();
+
+		Predicate<CloseStock> s2 = x -> x.getStockPeriodStatus().equals(StockStatus.draft);
+		boolean check_draft = closerepo.findAll().stream().anyMatch(s2);
+
+		if (check_draft == false) {
+			for (ClosingValueDto s : close_stock_values) {
+
+				OpeningStock open_stock = new OpeningStock();
+
+				open_stock.setProductCode(s.getProductCode());
+				open_stock.setPricePerUnit(s.getPricePerUnit());
+				open_stock.setProductName(s.getProductName());
+				open_stock.setQty(s.getQty());
+				open_stock.setUnitMeasurement(s.getUnitMeasurement());
+				open_stock.setClosing_date(close_date);
+				closing_stock_total += s.getQty() * s.getPricePerUnit();
+
+				opening_repo.save(open_stock);
+			}
+			this.closing_value = closing_stock_total;
+			stock_service.add_close_stock("draft");
+
+			return "Added Successfully";
 		}
 		return "Draft should be approve completed first";
 	}
+
 	@Override
 
-    public List<CloseStock> getStockPeriod(Date start_Date, Date end_date) throws InventoryException {
+	public List<CloseStock> getStockPeriod(Date start_Date, Date end_date) throws InventoryException {
+		List<CloseStock> list = null;
 
-        List<CloseStock> list = closerepo.getStockPeriod(start_Date, end_date);
+		if (start_Date.compareTo(end_date) == 0) {
+			list = closerepo.getLastFiveStockPeriod();
+		} else {
+			list = closerepo.getStockPeriod(start_Date, end_date);
+		}
 
-        // TODO Auto-generated method stub
-
-        return list;
+		return list;
 	}
 }
-	
-
-
