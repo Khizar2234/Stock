@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /stock
+    context-path: /inventory
 
 spring:
   application:
@@ -10,7 +10,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/stockservice
     username: postgres
-    password: secret
+    password: Amadeus%_07
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -21,7 +21,7 @@ spring:
        database-platform: org.hibernate.dialect.PostgreSQL95Dialect
 
 swagger:
-  url: http://localhost:${server.port}/stock            
+  url: http://localhost:${server.port}/inventory            
       
 eureka:
   client:

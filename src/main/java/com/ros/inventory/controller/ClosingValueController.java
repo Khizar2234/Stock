@@ -32,6 +32,7 @@ public class ClosingValueController {
 	@GetMapping("/view_close_values")
 	@ResponseBody
 	public ResponseEntity<?> getItems() {
+		System.out.println("hello ");
 		ResponseEntity<?> response;
 		try {
 			response = new ResponseEntity<Object>(iclosingValue.getValues(), HttpStatus.OK);

@@ -13,9 +13,9 @@ import com.ros.inventory.entities.Wastage;
 import com.ros.inventory.controller.dto.CloseStockDetailDto;
 import com.ros.inventory.controller.dto.CloseStockDto;
 import com.ros.inventory.controller.dto.OpeningStockDto;
+import com.ros.inventory.controller.dto.StockBalanceDto;
 import com.ros.inventory.controller.dto.Summary;
 import com.ros.inventory.controller.dto.purchaseOrderDto;
-import com.ros.inventory.controller.dto.stock_balance;
 import com.ros.inventory.controller.dto.wastageDto;
 
 public interface stockService {
@@ -30,7 +30,7 @@ public interface stockService {
 
 	List<purchaseOrderDto> getpurchaseOrder() throws InventoryException;
 
-	List<stock_balance> getStockBalance() throws InventoryException;
+	List<StockBalanceDto> getStockBalance() throws InventoryException;
 
 	Summary getSummary() throws InventoryException;
 

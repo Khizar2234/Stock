@@ -1,6 +1,7 @@
 package com.ros.inventory.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -23,28 +25,29 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-public class OpeningStock {
-
+//@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class ClosingStock {
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name ="opening_id", length = 8)
-	private UUID OpeningID;
-	
-	@Column(name="product_code")
-	private long productCode;
-	@Column(name="product_name")
-	private String productName;
-	@Column(name="unit_measurement")
-	private String unitMeasurement;
-	@Column(name="price_per_unit")
-	private double pricePerUnit;
-	@Column(name="Quantity")
-	private int qty;
-	@Column(name="closing_Date")
-	private LocalDate closing_date;
+	@Column(name = "closing_id", length = 8)
+	private UUID ClosingID;
 
+	@Column(name = "product_code")
+	private long productCode;
+	@Column(name = "product_name")
+	private String productName;
+	@Column(name = "unit_measurement")
+	private String unitMeasurement;
+	@Column(name = "price_per_unit")
+	private double pricePerUnit;
+	@Column(name = "Quantity")
+	private int qty;
+	@Column(name = "closing_Date")
+	private LocalDate closing_date;
+	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "stock_period_id")
 	private StockPeriod stockPeriod;

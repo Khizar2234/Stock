@@ -11,7 +11,7 @@ import com.ros.inventory.entities.Wastage;
 
 public interface IWastageManager {
 
-	Wastage add(wastageDto wastage) throws InventoryException;
+	Wastage add(Wastage wastage) throws InventoryException;
 
 	//List<Wastage> show() throws InventoryException;
 
@@ -20,5 +20,7 @@ public interface IWastageManager {
 	Wastage byId(long code) throws InventoryException;
 
 	Wastage delete(UUID id) throws InventoryException;
+	
+	List<Wastage> show() throws InventoryException;
 
 }

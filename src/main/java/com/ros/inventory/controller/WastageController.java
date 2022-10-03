@@ -32,7 +32,7 @@ public class WastageController
   
   @PostMapping("/add")
   @ResponseBody
-  public ResponseEntity<?> addWasteItem(@RequestBody  wastageDto wastage)
+  public ResponseEntity<?> addWasteItem(@RequestBody  Wastage wastage)
   {
 	  ResponseEntity response;
 	  try
@@ -49,22 +49,22 @@ public class WastageController
   
   
   /*-------------- FOR GETTING ALL THE ITEM PRESENT IN WASTAGE -------------*/
-//   @GetMapping("/show")
-//   @ResponseBody
-//   public ResponseEntity<?> showAll()
-//   {
-//	   ResponseEntity response;
-//	   try
-//	   {
-//		   response = new ResponseEntity(wastagemanager.show(),HttpStatus.OK);
-//	   }
-//	   catch(InventoryException e)
-//	   {
-//		   response = new ResponseEntity(e.getMessage(),HttpStatus.OK);
-//		   e.printStackTrace();
-//	   }
-//	   return response;
-//   }
+   @GetMapping("/show")
+   @ResponseBody
+   public ResponseEntity<?> showAll()
+   {
+	   ResponseEntity response;
+	   try
+	   {
+		   response = new ResponseEntity(wastagemanager.show(),HttpStatus.OK);
+	   }
+	   catch(InventoryException e)
+	   {
+		   response = new ResponseEntity(e.getMessage(),HttpStatus.OK);
+		   e.printStackTrace();
+	   }
+	   return response;
+   }
    
    /*------------- FOR SEARCHING ITEM BY NAME -------------------*/
    @GetMapping("/name/{item}")
@@ -120,4 +120,5 @@ public class WastageController
 	   return response;
    }
    
+
 }
