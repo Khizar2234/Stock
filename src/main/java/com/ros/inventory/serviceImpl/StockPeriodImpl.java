@@ -3,6 +3,7 @@ package com.ros.inventory.serviceImpl;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,14 +18,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ros.inventory.Exception.NoOpenStockPeriodFound;
 import com.ros.inventory.Exception.OpeningStockNotFound;
+import com.ros.inventory.Repository.CloseStockRepository;
 import com.ros.inventory.Repository.ClosingStockRepository;
 import com.ros.inventory.Repository.OpeningStockRepository;
 import com.ros.inventory.Repository.StockPeriodRepo;
 import com.ros.inventory.controller.dto.ClosingValueDto;
+import com.ros.inventory.entities.CloseStock;
 import com.ros.inventory.controller.dto.EditInfo;
 import com.ros.inventory.controller.dto.SiteTransferDto;
 import com.ros.inventory.entities.ClosingStock;
 import com.ros.inventory.entities.OpeningStock;
+import com.ros.inventory.entities.StockStatus;
 import com.ros.inventory.entities.SiteTransfer;
 import com.ros.inventory.entities.StockPeriod;
 import com.ros.inventory.entities.Supplier;
@@ -41,26 +45,36 @@ public class StockPeriodImpl implements IStockPeriod {
     SiteTransferMapper spMapper;
 
     @Autowired
+    SiteTransferMapper spMapper;
+
+    @Autowired
     ClosingStockRepository closingStockRepo;
 
     @Autowired
     OpeningStockRepository osRepo;
+    
+    
+    @Autowired
+    CloseStockRepository closeStockRepo;
 
-    public LocalDate getStockPeriodStartDate() throws NoOpenStockPeriodFound {
+    public Map<UUID, LocalDate> getStockPeriodStartDate() throws NoOpenStockPeriodFound {
         List<com.ros.inventory.entities.StockPeriod> sps = null;
+        Map<UUID, LocalDate> openStockDetail = new HashMap<>();
         sps = repo.findAll();
         LocalDate date = null;
         for (com.ros.inventory.entities.StockPeriod sp : sps) {
             if (sp.getCloseDate() == null) {
                 date = sp.getStartDate();
+                openStockDetail.put(sp.getStockPeriodId(), date);
                 break;
             }
         }
         if (date == null)
             throw new NoOpenStockPeriodFound("no Open stock period found");
 
-        return date;
+        return openStockDetail;
 
+    	return repo.save(sp);
     }
     
     
@@ -196,7 +210,40 @@ public class StockPeriodImpl implements IStockPeriod {
         
         return "Saved successfuly";
     }
-
+    
+    
+    @Override
+    public List<CloseStock> getClosedStockList() throws NoOpenStockPeriodFound{
+        List<CloseStock> closedStockList = new ArrayList<>();
+        List<com.ros.inventory.entities.StockPeriod> sps = null;
+        sps = repo.findAll();
+        Map<UUID, Double> closingStockValueMap = new HashMap<>();
+        closingStockValueMap = getClosingStockValue();
+        Map<UUID, Double> openingStockValueMap = new HashMap<>();
+        openingStockValueMap = getOpeningStockValue();
+        for (com.ros.inventory.entities.StockPeriod sp : sps) {
+            if (sp.getCloseDate() != null) {
+                CloseStock closeStock = new CloseStock();
+                closeStock.setStock_start_date(sp.getStartDate());
+                closeStock.setStock_end_date(sp.getCloseDate());
+                closeStock.setOpening_stock_value(openingStockValueMap.get(sp.getStockPeriodId()));
+                closeStock.setClosing_stock_value(closingStockValueMap.get(sp.getStockPeriodId()));
+                closeStock.setCost_of_sales(1000);
+                closeStock.setStockPeriodStatus(StockStatus.approved);
+                closeStockRepo.save(closeStock);
+                closedStockList.add(closeStock);
+            }
+            
+        }
+        return closedStockList;
+    }
+    
+    public boolean closeStockApprove(CloseStock closedStock) {
+    	CloseStock cs= closeStockRepo.findById(closedStock.getStockID()).get();
+    	cs.setStockPeriodStatus(StockStatus.approved);
+    	closeStockRepo.save(cs);
+    	return true;
+    }
 	@Override
 	public List<Wastage> getAllWastedProducts(UUID id) {
 
