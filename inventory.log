@@ -2895,3 +2895,49 @@ Caused by: java.lang.Error: Unresolved compilation problem:
 2022-10-03 17:02:37,158 INFO  [http-nio-8080-exec-1] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/inventory] : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2022-10-03 17:02:37,159 INFO  [http-nio-8080-exec-1] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
 2022-10-03 17:02:37,164 INFO  [http-nio-8080-exec-1] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 5 ms
+2022-10-03 18:27:14,973 INFO  [RMI TCP Connection(113)-127.0.0.1] org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2022-10-03 18:27:14,975 INFO  [RMI TCP Connection(113)-127.0.0.1] org.springframework.cloud.netflix.eureka.serviceregistry.EurekaServiceRegistry : Unregistering application STOCK-SERVICE with eureka with status DOWN
+2022-10-03 18:27:15,010 INFO  [RMI TCP Connection(113)-127.0.0.1] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-10-03 18:27:15,015 INFO  [RMI TCP Connection(113)-127.0.0.1] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-10-03 18:27:15,017 INFO  [RMI TCP Connection(113)-127.0.0.1] com.zaxxer.hikari.HikariDataSource : HikariPool-4 - Shutdown initiated...
+2022-10-03 18:27:15,020 INFO  [RMI TCP Connection(113)-127.0.0.1] com.zaxxer.hikari.HikariDataSource : HikariPool-4 - Shutdown completed.
+2022-10-03 18:27:15,020 INFO  [RMI TCP Connection(113)-127.0.0.1] com.netflix.discovery.DiscoveryClient : Shutting down DiscoveryClient ...
+2022-10-03 18:27:15,023 INFO  [RMI TCP Connection(113)-127.0.0.1] com.netflix.discovery.DiscoveryClient : Completed shut down of DiscoveryClient
+2022-10-03 20:30:30,555 INFO  [restartedMain] com.ros.inventory.InventoryStockServiceApplication : Starting InventoryStockServiceApplication using Java 17.0.4 on BLRL119435 with PID 1812 (C:\Users\mshaik\Desktop\ROS BACKEND\inventory-service_stock\InventoryStockService\target\classes started by mshaik in C:\Users\mshaik\Desktop\ROS BACKEND\inventory-service_stock\InventoryStockService)
+2022-10-03 20:30:30,561 DEBUG [restartedMain] com.ros.inventory.InventoryStockServiceApplication : Running with Spring Boot v2.4.5, Spring v5.3.6
+2022-10-03 20:30:30,562 INFO  [restartedMain] com.ros.inventory.InventoryStockServiceApplication : The following profiles are active: local
+2022-10-03 20:30:30,588 INFO  [restartedMain] org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-10-03 20:30:30,588 INFO  [restartedMain] org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-10-03 20:30:31,475 INFO  [restartedMain] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-10-03 20:30:31,644 INFO  [restartedMain] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 161 ms. Found 11 JPA repository interfaces.
+2022-10-03 20:30:31,843 INFO  [restartedMain] org.springframework.cloud.context.scope.GenericScope : BeanFactory id=8e91f7f9-00ce-32d6-92d2-157fe6649dc8
+2022-10-03 20:30:32,250 INFO  [restartedMain] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8080 (http)
+2022-10-03 20:30:32,258 INFO  [restartedMain] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2022-10-03 20:30:32,258 INFO  [restartedMain] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2022-10-03 20:30:32,336 INFO  [restartedMain] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/inventory] : Initializing Spring embedded WebApplicationContext
+2022-10-03 20:30:32,336 INFO  [restartedMain] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1748 ms
+2022-10-03 20:30:32,611 INFO  [restartedMain] org.hibernate.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-10-03 20:30:32,671 INFO  [restartedMain] org.hibernate.Version : HHH000412: Hibernate ORM core version 5.4.30.Final
+2022-10-03 20:30:32,794 INFO  [restartedMain] org.hibernate.annotations.common.Version : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-10-03 20:30:32,874 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
+2022-10-03 20:30:33,023 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.
+2022-10-03 20:30:33,053 INFO  [restartedMain] org.hibernate.dialect.Dialect : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-10-03 20:30:33,950 INFO  [restartedMain] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-10-03 20:30:33,961 INFO  [restartedMain] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-10-03 20:30:34,006 INFO  [restartedMain] org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer : LiveReload server is running on port 35729
+2022-10-03 20:30:34,616 WARN  [restartedMain] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-10-03 20:30:34,840 INFO  [restartedMain] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2022-10-03 20:30:35,937 INFO  [restartedMain] org.springframework.cloud.netflix.eureka.config.DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2022-10-03 20:30:36,002 WARN  [restartedMain] org.springframework.cloud.loadbalancer.config.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2022-10-03 20:30:36,008 INFO  [restartedMain] org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver : Exposing 2 endpoint(s) beneath base path '/actuator'
+2022-10-03 20:30:36,068 INFO  [restartedMain] org.springframework.cloud.netflix.eureka.InstanceInfoFactory : Setting initial instance status as: STARTING
+2022-10-03 20:30:36,104 INFO  [restartedMain] com.netflix.discovery.DiscoveryClient : Initializing Eureka in region us-east-1
+2022-10-03 20:30:36,104 INFO  [restartedMain] com.netflix.discovery.DiscoveryClient : Client configured to neither register nor query for data.
+2022-10-03 20:30:36,115 INFO  [restartedMain] com.netflix.discovery.DiscoveryClient : Discovery Client initialized at timestamp 1664809236114 with initial instances count: 0
+2022-10-03 20:30:36,120 INFO  [restartedMain] org.springframework.cloud.netflix.eureka.serviceregistry.EurekaServiceRegistry : Registering application STOCK-SERVICE with eureka with status UP
+2022-10-03 20:30:36,166 INFO  [restartedMain] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path '/inventory'
+2022-10-03 20:30:36,166 INFO  [restartedMain] org.springframework.cloud.netflix.eureka.serviceregistry.EurekaAutoServiceRegistration : Updating port to 8080
+2022-10-03 20:30:36,298 INFO  [restartedMain] com.ros.inventory.InventoryStockServiceApplication : Started InventoryStockServiceApplication in 6.163 seconds (JVM running for 6.745)
+2022-10-03 20:30:36,524 INFO  [RMI TCP Connection(3)-127.0.0.1] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/inventory] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-10-03 20:30:36,524 INFO  [RMI TCP Connection(3)-127.0.0.1] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2022-10-03 20:30:36,526 INFO  [RMI TCP Connection(3)-127.0.0.1] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 2 ms

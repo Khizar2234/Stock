@@ -1,20 +1,14 @@
 server:
-  port: 8094
+  port: 8093
   servlet:
     context-path: /inventory
 spring:
   application:
     name: InventoryService
   datasource:
-<<<<<<< HEAD:src/main/resources/application-dev.yml
-    url: jdbc:postgresql://db:inventory.postgres.database.azure.com/Inventory-Stock?CreateDatabaseIfNotExist=true
-    username: adminroot
-    password: password@123
-=======
     url: jdbc:postgresql://localhost:5432/inventory?CreateDatabaseIfNotExist=true
     username: postgres
     password: Amadeus%_07
->>>>>>> Team3-backend:InventoryStockService/src/main/resources/application-dev.yml
     initialization-mode: always
     driver-class-name: org.postgresql.Driver
   jpa:
@@ -29,11 +23,7 @@ spring:
       enabled: false
       
 swagger:
-<<<<<<< HEAD:src/main/resources/application-dev.yml
-  url: https://stock-service.ros.skillassure.com/inventory
-=======
   url: http://localhost:8093/inventory
->>>>>>> Team3-backend:InventoryStockService/src/main/resources/application-dev.yml
   
 eureka:
   client:
