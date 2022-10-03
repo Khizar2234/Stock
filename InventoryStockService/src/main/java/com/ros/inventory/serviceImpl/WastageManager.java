@@ -20,12 +20,11 @@ public class WastageManager implements IWastageManager
 {
   @Autowired 
   WastageRepository wasteRepo;
-  @Autowired
-  wastageDtoMapper mapper;
+
 	
   /*------------- ADD WASTAGE PRODUCT ----------------*/
 	@Override
-	public Wastage add(wastageDto wastage) throws InventoryException
+	public Wastage add(Wastage wastage) throws InventoryException
 	{
 		// TODO Auto-generated method stub
 	
@@ -35,27 +34,27 @@ public class WastageManager implements IWastageManager
 		{
 			throw new InventoryException("item is already present ");
 		}
-		Wastage ws=mapper.convertToEntity(wastage);
+
 		LocalDate ld=LocalDate.now();
-		ws.setWastageDate(ld);
+		wastage.setWastageDate(ld);
 		
-		return wasteRepo.save(ws); 
+		return wasteRepo.save(wastage); 
 	}
 
-//  /*----------- SHOW ALL WASTAGE ITEMS -----------------*/
-//	@Override
-//	public List<wastage> show() throws InventoryException
-//	{
-//		// TODO Auto-generated method stub
-//       List<wastage> wastageFromRepo = wasteRepo.findAll();
-//       
-//        if(wastageFromRepo ==null || wastageFromRepo.size()==0)
-//        {
-//             throw new InventoryException("no items are available");
-//        }
-//        
-//		return wastageFromRepo;
-//	}
+  /*----------- SHOW ALL WASTAGE ITEMS -----------------*/
+	@Override
+	public List<Wastage> show() throws InventoryException
+	{
+		// TODO Auto-generated method stub
+       List<Wastage> wastageFromRepo = wasteRepo.findAll();
+       
+        if(wastageFromRepo ==null || wastageFromRepo.size()==0)
+        {
+             throw new InventoryException("no items are available");
+        }
+        
+		return wastageFromRepo;
+	}
 
 	/*--------- GET BY  PRODUCT NAME ------------------*/
 	@Override

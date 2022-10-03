@@ -1,7 +1,8 @@
 package com.ros.inventory.controller.dto;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.UUID;
+
 
 import com.ros.inventory.entities.TransferType;
 
@@ -9,14 +10,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class SiTeTransfersDto {		
-	private String date;
-	private TransferType transferType;
+@NoArgsConstructor
+@AllArgsConstructor
+public class SiteTransferDto {
+	
+	private UUID siteTransferDtoId;
 	private String supplierName;
-	private int NoOfProducts;
-	private double TotalValue;
+	private Date date;
+	private TransferType transferType;
+	private int noOfProducts;
+	private double totalValue;
 }

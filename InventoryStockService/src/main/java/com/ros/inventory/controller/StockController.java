@@ -27,7 +27,6 @@ import com.ros.inventory.service.IProductManager;
 import com.ros.inventory.service.stockService;
 import com.ros.inventory.controller.dto.CloseStockDetailDto;
 import com.ros.inventory.controller.dto.CloseStockDto;
-import com.ros.inventory.controller.dto.stock_balance;
 import com.ros.inventory.controller.dto.wastageDto;
 
 //import io.swagger.v3.oas.annotations.parameters.RequestBody;

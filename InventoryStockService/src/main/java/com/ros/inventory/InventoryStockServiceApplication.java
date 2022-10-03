@@ -48,8 +48,8 @@ import com.ros.inventory.mapper.PurchaseOrderMapper;
 import com.ros.inventory.mapper.PurchaseOrderMapperImpl;
 import com.ros.inventory.mapper.RejectedProductMapper;
 import com.ros.inventory.mapper.RejectedProductMapperImpl;
-import com.ros.inventory.mapper.SiteTransfersPurchaseMapper;
-import com.ros.inventory.mapper.SiteTransfersPurchaseMapperImpl;
+import com.ros.inventory.mapper.SiteTransferMapper;
+import com.ros.inventory.mapper.SiteTransferMapperImpl;
 import com.ros.inventory.mapper.StockPeriodMapper;
 import com.ros.inventory.mapper.StockPeriodMapperImpl;
 import com.ros.inventory.mapper.SupplierDescriptionMapper;
@@ -127,8 +127,8 @@ public class InventoryStockServiceApplication {
 	}
 
 	@Bean
-	public SiteTransfersPurchaseMapper spMapper() {
-		return new SiteTransfersPurchaseMapperImpl();
+	public SiteTransferMapper spMapper() {
+		return new SiteTransferMapperImpl();
 	}
 
 	@Bean

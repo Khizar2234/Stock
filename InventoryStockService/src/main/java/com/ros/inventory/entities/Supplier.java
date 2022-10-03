@@ -58,5 +58,8 @@ public class Supplier implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "supplierconytact_id")
 	private SupplierContact supplierContact;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<SiteTransfer> siteTransfers;
 
 }

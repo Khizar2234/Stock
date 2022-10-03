@@ -17,6 +17,6 @@ public class CloseStockDetailDto {
 	private List<OpeningStockDto> open_stock;
 	private List<purchaseOrderDto> purchase_order;
 	private List<wastageDto> wastage;
-	private List<stock_balance> stock_balance;
-	private List<SiTeTransfersDto> site_transfer;
+	private List<StockBalanceDto> stock_balance;
+	private List<SiteTransferDto> site_transfer;
 }

@@ -10,7 +10,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/stockservice
     username: postgres
-    password: sudevkk19
+    password: Amadeus%_07
     driver-class-name: org.postgresql.Driver
 
   jpa:

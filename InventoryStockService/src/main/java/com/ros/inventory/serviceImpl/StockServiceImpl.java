@@ -40,10 +40,9 @@ import com.ros.inventory.service.stockService;
 import com.ros.inventory.controller.dto.CloseStockDetailDto;
 import com.ros.inventory.controller.dto.CloseStockDto;
 import com.ros.inventory.controller.dto.OpeningStockDto;
-import com.ros.inventory.controller.dto.SiTeTransfersDto;
+import com.ros.inventory.controller.dto.StockBalanceDto;
 import com.ros.inventory.controller.dto.Summary;
 import com.ros.inventory.controller.dto.purchaseOrderDto;
-import com.ros.inventory.controller.dto.stock_balance;
 import com.ros.inventory.controller.dto.wastageDto;
 
 @Service
@@ -353,14 +352,14 @@ public class StockServiceImpl implements stockService {
 
 	// ---------------------------Stock Balance-------------------//
 	@Override
-	public List<stock_balance> getStockBalance() throws InventoryException {
+	public List<StockBalanceDto> getStockBalance() throws InventoryException {
 
 		double stock_total = 0;
 		// get all product data
 		List<Product> list = repo.findAll();
 
 		// create the stock list
-		List<stock_balance> stock_list = new ArrayList();
+		List<StockBalanceDto> stock_list = new ArrayList();
 
 		boolean b = list.isEmpty();
 
@@ -412,7 +411,7 @@ public class StockServiceImpl implements stockService {
 
 			for (Product l : product) {
 
-				stock_balance stock = new stock_balance();
+				StockBalanceDto stock = new StockBalanceDto();
 				// assign stock_balance values for each object using this foreach loop
 				stock.setProductCode(l.getProductCode());
 				stock.setProductName(l.getProductName());

@@ -8,7 +8,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/inventory?CreateDatabaseIfNotExist=true
     username: postgres
-    password: sudevkk19
+    password: Amadeus%_07
     initialization-mode: always
     driver-class-name: org.postgresql.Driver
   jpa:
