@@ -3,14 +3,14 @@ server:
   servlet:
     context-path: /stock
 spring:
+  main:
+       allow-circular-references: true 
   application:
     name: InventoryService
   datasource:
-
     url: jdbc:postgresql://inventory.postgres.database.azure.com:5432/Inventory-Stock?CreateDatabaseIfNotExist=true
     username: adminroot
     password: password@123
-
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -22,8 +22,7 @@ spring:
   cloud:
     discovery:
       enabled: false
-  main:
-       allow-circular-references: true    
+     
 swagger:
   url: https://stock-service.ros.skillassure.com/stock
   
