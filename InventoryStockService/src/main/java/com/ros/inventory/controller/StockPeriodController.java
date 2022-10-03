@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ros.inventory.Exception.NoOpenStockPeriodFound;
 import com.ros.inventory.controller.dto.ClosingValueDto;
+import com.ros.inventory.entities.CloseStock;
 import com.ros.inventory.entities.ClosingStock;
 import com.ros.inventory.service.StockPeriod;
 
@@ -22,74 +23,81 @@ import com.ros.inventory.service.StockPeriod;
 @CrossOrigin("*")
 public class StockPeriodController {
 
-    @Autowired
-    StockPeriod service;
+	@Autowired
+	StockPeriod service;
 
-    @GetMapping("/getStartDate")
-    public ResponseEntity<?> getStockPeriodStartDate() {
-        ResponseEntity<?> response = null;
-        try {
-            response = new ResponseEntity<>(service.getStockPeriodStartDate(), HttpStatus.OK);
-        } catch (NoOpenStockPeriodFound e) {
-            // TODO Auto-generated catch block
-            response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
-        }
-        return response;
-    }
+	@GetMapping("/getStartDate")
+	public ResponseEntity<?> getStockPeriodStartDate() {
+		ResponseEntity<?> response = null;
+		try {
+			response = new ResponseEntity<>(service.getStockPeriodStartDate(), HttpStatus.OK);
+		} catch (NoOpenStockPeriodFound e) {
+			// TODO Auto-generated catch block
+			response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+		}
+		return response;
+	}
 
-    @GetMapping("/getClosingStockValue")
-    public ResponseEntity<?> getClosingStockValue() {
-        ResponseEntity<?> response = null;
-        try {
-            response = new ResponseEntity<>(service.getClosingStockValue(), HttpStatus.OK);
-        } catch (NoOpenStockPeriodFound e) {
-            // TODO Auto-generated catch block
-            response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
-        }
-        return response;
-    }
+	@GetMapping("/getClosingStockValue")
+	public ResponseEntity<?> getClosingStockValue() {
+		ResponseEntity<?> response = null;
+		try {
+			response = new ResponseEntity<>(service.getClosingStockValue(), HttpStatus.OK);
+		} catch (NoOpenStockPeriodFound e) {
+			// TODO Auto-generated catch block
+			response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+		}
+		return response;
+	}
 
-    @GetMapping("/getTotalClosingStockValue")
-    public ResponseEntity<?> getToatlClosingStockValue() {
-        ResponseEntity<?> response = null;
-        response = new ResponseEntity<>(service.totalClosedStockValue(), HttpStatus.OK);
-        return response;
-    }
+	@GetMapping("/getTotalClosingStockValue")
+	public ResponseEntity<?> getToatlClosingStockValue() {
+		ResponseEntity<?> response = null;
+		response = new ResponseEntity<>(service.totalClosedStockValue(), HttpStatus.OK);
+		return response;
+	}
 
-    @GetMapping("/getOpeningStockValue")
-    public ResponseEntity<?> getOpeningStockValue() {
-        ResponseEntity<?> response = null;
-        try {
-            response = new ResponseEntity<>(service.getOpeningStockValue(), HttpStatus.OK);
-        } catch (NoOpenStockPeriodFound e) {
-            // TODO Auto-generated catch block
-            response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
-        }
-        return response;
-    }
+	@GetMapping("/getOpeningStockValue")
+	public ResponseEntity<?> getOpeningStockValue() {
+		ResponseEntity<?> response = null;
+		try {
+			response = new ResponseEntity<>(service.getOpeningStockValue(), HttpStatus.OK);
+		} catch (NoOpenStockPeriodFound e) {
+			// TODO Auto-generated catch block
+			response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+		}
+		return response;
+	}
 
-    @PostMapping("/saveClosingStockValue")
-    public ResponseEntity<?> savingClosingStocks(@RequestBody List<ClosingValueDto> cvd) {
-        ResponseEntity<?> response = null;
-        try {
-            response = new ResponseEntity<>(service.saveClosingValue(cvd), HttpStatus.OK);
-        } catch (NoOpenStockPeriodFound e) {
-            // TODO Auto-generated catch block
-            response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
-        }
-        return response;
-    }
-    
-    @GetMapping("/getClosedStockList")
-    public ResponseEntity<?> getClosedStockList() {
-        ResponseEntity<?> response = null;
-        try {
-            response = new ResponseEntity<>(service.getClosedStockList(), HttpStatus.OK);
-        } catch (NoOpenStockPeriodFound e) {
-            // TODO Auto-generated catch block
-            response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
-        }
-        return response;
-    }
-    
+	@PostMapping("/saveClosingStockValue")
+	public ResponseEntity<?> savingClosingStocks(@RequestBody List<ClosingValueDto> cvd) {
+		ResponseEntity<?> response = null;
+		try {
+			response = new ResponseEntity<>(service.saveClosingValue(cvd), HttpStatus.OK);
+		} catch (NoOpenStockPeriodFound e) {
+			// TODO Auto-generated catch block
+			response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+		}
+		return response;
+	}
+
+	@GetMapping("/getClosedStockList")
+	public ResponseEntity<?> getClosedStockList() {
+		ResponseEntity<?> response = null;
+		try {
+			response = new ResponseEntity<>(service.getClosedStockList(), HttpStatus.OK);
+		} catch (NoOpenStockPeriodFound e) {
+			// TODO Auto-generated catch block
+			response = new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+		}
+		return response;
+	}
+
+	@PostMapping("/approveCloseStock")
+	public ResponseEntity<?> closeStockApprove(@RequestBody CloseStock closedStock) {
+		ResponseEntity<?> response = null;
+		response = new ResponseEntity<>(service.closeStockApprove(closedStock), HttpStatus.OK);
+		return response;
+	}
+
 }

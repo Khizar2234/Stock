@@ -17,5 +17,6 @@ public interface StockPeriod {
     public float totalClosedStockValue();
     public String saveClosingValue(List<ClosingValueDto> cvd) throws NoOpenStockPeriodFound;
     public List<CloseStock> getClosedStockList() throws NoOpenStockPeriodFound;
+    public boolean closeStockApprove(CloseStock closedStock);
 
 }

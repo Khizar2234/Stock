@@ -211,6 +211,11 @@ public class StockPeriodImpl implements StockPeriod {
         }
         return closedStockList;
     }
-
-
+    
+    public boolean closeStockApprove(CloseStock closedStock) {
+    	CloseStock cs= closeStockRepo.findById(closedStock.getStockID()).get();
+    	cs.setStockPeriodStatus(StockStatus.approved);
+    	closeStockRepo.save(cs);
+    	return true;
+    }
 }
